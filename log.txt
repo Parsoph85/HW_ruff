@@ -1,0 +1,416 @@
+C:\test\Architecture-and-backend-homework>python -m ruff check .
+app.py:3:21: F401 [*] `logging.Logger` imported but unused
+  |
+1 | from datetime import datetime, timedelta
+2 | import json
+3 | from logging import Logger
+  |                     ^^^^^^ F401
+4 | import numpy as np
+5 | from pymongo import MongoClient
+  |
+  = help: Remove unused import: `logging.Logger`
+
+app.py:6:8: F401 [*] `gspread` imported but unused
+  |
+4 | import numpy as np
+5 | from pymongo import MongoClient
+6 | import gspread
+  |        ^^^^^^^ F401
+7 | import pandas as pd
+8 | from flask import Flask, request, Response, render_template
+  |
+  = help: Remove unused import: `gspread`
+
+app.py:8:35: F401 [*] `flask.Response` imported but unused
+   |
+ 6 | import gspread
+ 7 | import pandas as pd
+ 8 | from flask import Flask, request, Response, render_template
+   |                                   ^^^^^^^^ F401
+ 9 | import os
+10 | import pytz
+   |
+   = help: Remove unused import: `flask.Response`
+
+app.py:200:9: F841 Local variable `sdate` is assigned to but never used
+    |
+199 |         tid = request.args.get("tid")
+200 |         sdate = request.args.get("sdate")
+    |         ^^^^^ F841
+201 |
+202 |         team = getteamid(tid)
+    |
+    = help: Remove assignment to unused variable `sdate`
+
+app.py:205:9: F841 Local variable `teamlistarr` is assigned to but never used
+    |
+203 |         teamsingle = team.split("_")[0]
+204 |         teamsingle = teamsingle.split("Training")[0]
+205 |         teamlistarr = [
+    |         ^^^^^^^^^^^ F841
+206 |             "Angels",
+207 |             "Astros",
+    |
+    = help: Remove assignment to unused variable `teamlistarr`
+
+app.py:241:9: F841 Local variable `eventarr` is assigned to but never used
+    |
+239 |         col = db[dbname]
+240 |         results = col.find_one()
+241 |         eventarr = []
+    |         ^^^^^^^^ F841
+242 |         elist = results["elist"]
+    |
+    = help: Remove assignment to unused variable `eventarr`
+
+app.py:271:9: F841 Local variable `teamlistarr` is assigned to but never used
+    |
+269 |                     return team
+270 |
+271 |         teamlistarr = [
+    |         ^^^^^^^^^^^ F841
+272 |             "Angels",
+273 |             "Astros",
+    |
+    = help: Remove assignment to unused variable `teamlistarr`
+
+app.py:306:9: F841 Local variable `sdate` is assigned to but never used
+    |
+304 |         ateam = request.args.get("ateam")
+305 |         team = getteamid(tid)
+306 |         sdate = request.args.get("sdate")
+    |         ^^^^^ F841
+307 |         teamsingle = team.split("_")[0]
+308 |         teamsingle = teamsingle.split("Training")[0]
+    |
+    = help: Remove assignment to unused variable `sdate`
+
+app.py:339:23: E711 Comparison to `None` should be `cond is None`
+    |
+337 |         # today = '10042022'
+338 |         results = col.find_one()
+339 |         if results == None:
+    |                       ^^^^ E711
+340 |             col = db[yesterday]
+341 |             results = col.find_one()
+    |
+    = help: Replace with `cond is None`
+
+app.py:363:23: E711 Comparison to `None` should be `cond is None`
+    |
+361 |         col = db[today]
+362 |         results = col.find_one()
+363 |         if results == None:
+    |                       ^^^^ E711
+364 |             col = db[yesterday]
+365 |             results = col.find_one()
+    |
+    = help: Replace with `cond is None`
+
+app.py:378:13: F841 Local variable `sgqty` is assigned to but never used
+    |
+376 |     def sglistsingle():
+377 |         def matchfunction(x):
+378 |             sgqty = x["QTY_LISTED"]
+    |             ^^^^^ F841
+379 |             skyseatmin = x["minskyseat"]
+380 |             skyseatmax = x["maxskyseat"]
+    |
+    = help: Remove assignment to unused variable `sgqty`
+
+app.py:541:14: E712 Avoid equality comparisons to `False`; use `not listdf["tags"].str.contains("donot-broadcast"):` for false checks
+    |
+539 |         listdf = pd.DataFrame(jsondata)
+540 |         broaddf = listdf[
+541 |             (listdf["tags"].str.contains("donot-broadcast") == False)
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+542 |             & (listdf["notes"].str.contains("BG:") == True)
+543 |             & (listdf["tags"].str.contains("for-spin") == False)
+    |
+    = help: Replace with `not listdf["tags"].str.contains("donot-broadcast")`
+
+app.py:542:16: E712 Avoid equality comparisons to `True`; use `listdf["notes"].str.contains("BG:"):` for truth checks
+    |
+540 |         broaddf = listdf[
+541 |             (listdf["tags"].str.contains("donot-broadcast") == False)
+542 |             & (listdf["notes"].str.contains("BG:") == True)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+543 |             & (listdf["tags"].str.contains("for-spin") == False)
+544 |         ]
+    |
+    = help: Replace with `listdf["notes"].str.contains("BG:")`
+
+app.py:543:16: E712 Avoid equality comparisons to `False`; use `not listdf["tags"].str.contains("for-spin"):` for false checks
+    |
+541 |             (listdf["tags"].str.contains("donot-broadcast") == False)
+542 |             & (listdf["notes"].str.contains("BG:") == True)
+543 |             & (listdf["tags"].str.contains("for-spin") == False)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+544 |         ]
+545 |         broaddf["floor_value"] = broaddf["notes"].apply(
+    |
+    = help: Replace with `not listdf["tags"].str.contains("for-spin")`
+
+app.py:612:22: E711 Comparison to `None` should be `cond is None`
+    |
+610 |         collection = db[today]
+611 |         result = collection.find_one({"eid": int(sgid_val)})
+612 |         if result == None:
+    |                      ^^^^ E711
+613 |             collection = db[yesterday]
+614 |             result = collection.find_one({"eid": int(sgid_val)})
+    |
+    = help: Replace with `cond is None`
+
+app.py:901:14: E712 Avoid equality comparisons to `False`; use `not listdf["tags"].str.contains("donot-broadcast"):` for false checks
+    |
+900 |         broaddf = listdf[
+901 |             (listdf["tags"].str.contains("donot-broadcast") == False)
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+902 |             & (listdf["notes"].str.contains("BG:") == True)
+903 |             & (listdf["tags"].str.contains("for-spin") == False)
+    |
+    = help: Replace with `not listdf["tags"].str.contains("donot-broadcast")`
+
+app.py:902:16: E712 Avoid equality comparisons to `True`; use `listdf["notes"].str.contains("BG:"):` for truth checks
+    |
+900 |         broaddf = listdf[
+901 |             (listdf["tags"].str.contains("donot-broadcast") == False)
+902 |             & (listdf["notes"].str.contains("BG:") == True)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+903 |             & (listdf["tags"].str.contains("for-spin") == False)
+904 |         ]
+    |
+    = help: Replace with `listdf["notes"].str.contains("BG:")`
+
+app.py:903:16: E712 Avoid equality comparisons to `False`; use `not listdf["tags"].str.contains("for-spin"):` for false checks
+    |
+901 |             (listdf["tags"].str.contains("donot-broadcast") == False)
+902 |             & (listdf["notes"].str.contains("BG:") == True)
+903 |             & (listdf["tags"].str.contains("for-spin") == False)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+904 |         ]
+905 |         colvals = broaddf.columns
+    |
+    = help: Replace with `not listdf["tags"].str.contains("for-spin")`
+
+app.py:905:9: F841 Local variable `colvals` is assigned to but never used
+    |
+903 |             & (listdf["tags"].str.contains("for-spin") == False)
+904 |         ]
+905 |         colvals = broaddf.columns
+    |         ^^^^^^^ F841
+906 |         broaddf["floor_value"] = broaddf["notes"].apply(
+907 |             lambda x: str(x).split(" -")[0].split("BG:")[1]
+    |
+    = help: Remove assignment to unused variable `colvals`
+
+app.py:978:22: E711 Comparison to `None` should be `cond is None`
+    |
+976 |         result = collection.find_one({"eid": int(sgid_val)})
+977 |
+978 |         if result == None:
+    |                      ^^^^ E711
+979 |             collection = db[yesterday]
+980 |             result = collection.find_one({"eid": int(sgid_val)})
+    |
+    = help: Replace with `cond is None`
+
+app.py:1039:13: F841 Local variable `sgqty` is assigned to but never used
+     |
+1038 |         def matchfunction(x):
+1039 |             sgqty = x["QTY_LISTED"]
+     |             ^^^^^ F841
+1040 |             skyseatmin = x["minskyseat"]
+1041 |             skyseatmax = x["maxskyseat"]
+     |
+     = help: Remove assignment to unused variable `sgqty`
+
+app.py:1054:13: F841 Local variable `fv` is assigned to but never used
+     |
+1052 |             sbrow = x["row_match"]
+1053 |             sgrow = x["ROW_NAME"]
+1054 |             fv = x["FACE_VALUE"]
+     |             ^^ F841
+1055 |             sbprice = float(x["listprice"])
+1056 |             skyqty = int(x["quantity"])
+     |
+     = help: Remove assignment to unused variable `fv`
+
+app.py:1055:13: F841 Local variable `sbprice` is assigned to but never used
+     |
+1053 |             sgrow = x["ROW_NAME"]
+1054 |             fv = x["FACE_VALUE"]
+1055 |             sbprice = float(x["listprice"])
+     |             ^^^^^^^ F841
+1056 |             skyqty = int(x["quantity"])
+     |
+     = help: Remove assignment to unused variable `sbprice`
+
+app.py:1056:13: F841 Local variable `skyqty` is assigned to but never used
+     |
+1054 |             fv = x["FACE_VALUE"]
+1055 |             sbprice = float(x["listprice"])
+1056 |             skyqty = int(x["quantity"])
+     |             ^^^^^^ F841
+1057 |
+1058 |             if sbrow == sgrow:
+     |
+     = help: Remove assignment to unused variable `skyqty`
+
+app.py:1198:9: F841 Local variable `today` is assigned to but never used
+     |
+1196 |             % (mongousername, mongopassword)
+1197 |         )
+1198 |         today = datetime.today().strftime("%m%d%Y")
+     |         ^^^^^ F841
+1199 |         yesterday = (datetime.today() - timedelta(days=1)).strftime("%m%d%Y")
+     |
+     = help: Remove assignment to unused variable `today`
+
+app.py:1199:9: F841 Local variable `yesterday` is assigned to but never used
+     |
+1197 |         )
+1198 |         today = datetime.today().strftime("%m%d%Y")
+1199 |         yesterday = (datetime.today() - timedelta(days=1)).strftime("%m%d%Y")
+     |         ^^^^^^^^^ F841
+1200 |
+1201 |         t = request.args.get("t")
+     |
+     = help: Remove assignment to unused variable `yesterday`
+
+app.py:1358:20: E712 Avoid equality comparisons to `False`; use `not oldpurchasestatus:` for false checks
+     |
+1356 |                 print("SAME purchase status")
+1357 |                 # no changes to purchased date
+1358 |                 if oldpurchasestatus == False:
+     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+1359 |                     pdate = "NA"
+1360 |                     pby = "NA"
+     |
+     = help: Replace with `not oldpurchasestatus`
+
+app.py:1365:20: E712 Avoid equality comparisons to `False`; use `not newpurchasestatus:` for false checks
+     |
+1363 |                     pby = oldpurchasedby
+1364 |             else:
+1365 |                 if newpurchasestatus == False:
+     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+1366 |                     print("New p status is false clear previous")
+1367 |                     # remove the date
+     |
+     = help: Replace with `not newpurchasestatus`
+
+app.py:1379:20: E712 Avoid equality comparisons to `False`; use `not oldfilledstatus:` for false checks
+     |
+1377 |                 print("SAME filled status")
+1378 |                 # no changes to filled date
+1379 |                 if oldfilledstatus == False:
+     |                    ^^^^^^^^^^^^^^^^^^^^^^^^ E712
+1380 |                     fdate = "NA"
+1381 |                     fby = "NA"
+     |
+     = help: Replace with `not oldfilledstatus`
+
+app.py:1386:20: E712 Avoid equality comparisons to `False`; use `not newfilledstatus:` for false checks
+     |
+1384 |                     fby = oldfilledby
+1385 |             else:
+1386 |                 if newfilledstatus == False:
+     |                    ^^^^^^^^^^^^^^^^^^^^^^^^ E712
+1387 |                     print("New f status is false clear previous")
+1388 |                     fdate = "NA"
+     |
+     = help: Replace with `not newfilledstatus`
+
+app.py:1410:13: F841 Local variable `updateinvoice` is assigned to but never used
+     |
+1408 |             print(solddf.loc[solddf["invoiceId"] == updated_invoice["invoiceId"]])
+1409 |             solddict = solddf.to_dict(orient="records")
+1410 |             updateinvoice = soldupdate(solddict)
+     |             ^^^^^^^^^^^^^ F841
+1411 |
+1412 |             client.close()
+     |
+     = help: Remove assignment to unused variable `updateinvoice`
+
+countsapi.py:90:9: F841 Local variable `count` is assigned to but never used
+   |
+88 |         size = x["SIZE"]
+89 |         countrank = x["COUNT_rank"]
+90 |         count = x["COUNT"]
+   |         ^^^^^ F841
+91 |         sumcount = int(x["COUNT_SUM"])
+92 |         threshold = float(x["THRESHOLD"]) + 16
+   |
+   = help: Remove assignment to unused variable `count`
+
+countsapi.py:272:9: F841 Local variable `newbroad` is assigned to but never used
+    |
+270 |         tag = x["tags"]
+271 |         tagarr = str(tag).split(" ")
+272 |         newbroad = x["newbroad"]
+    |         ^^^^^^^^ F841
+273 |         broad = x["BROADCAST"]
+274 |         pb = x["PB"]
+    |
+    = help: Remove assignment to unused variable `newbroad`
+
+countsapi.py:487:25: E712 Avoid equality comparisons to `False`; use `not broaddf["notes"].str.contains(".com"):` for false checks
+    |
+485 |                 else:
+486 |                     broaddf = broaddf.loc[
+487 |                         broaddf["notes"].str.contains(".com") == False
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+488 |                     ]
+    |
+    = help: Replace with `not broaddf["notes"].str.contains(".com")`
+
+countsapi.py:585:17: F841 Local variable `csvname` is assigned to but never used
+    |
+583 |                 datestr = str(dateinfo).split("T")[0]
+584 |                 teamname = team.split("_Results")[0]
+585 |                 csvname = teamname + datestr + ".csv"
+    |                 ^^^^^^^ F841
+586 |                 sglistdbname = (team.split("_Results")[0]) + "_SGELIST"
+587 |                 if "Training" in team:
+    |
+    = help: Remove assignment to unused variable `csvname`
+
+countsapi.py:600:38: E711 Comparison to `None` should be `cond is None`
+    |
+598 |                 skyvsgcol = skyvssgdb[skyvssgdbname]
+599 |                 skyvssgresults = skyvsgcol.find_one({"SGID": str(sgid)})
+600 |                 if skyvssgresults == None:
+    |                                      ^^^^ E711
+601 |                     print("NO SKY DATA")
+602 |                     return "NO SKY DATA"
+    |
+    = help: Replace with `cond is None`
+
+countsapi.py:723:29: E712 Avoid equality comparisons to `False`; use `not broaddf["notes"].str.contains(".com"):` for false checks
+    |
+721 |                     else:
+722 |                         broaddf = broaddf.loc[
+723 |                             broaddf["notes"].str.contains(".com") == False
+    |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E712
+724 |                         ]
+    |
+    = help: Replace with `not broaddf["notes"].str.contains(".com")`
+
+generatepayload.py:63:5: F841 Local variable `slackid` is assigned to but never used
+   |
+61 |         urgentstr1 = ""
+62 |         urgentstr2 = ""
+63 |     slackid = getslackuserid(assigned)
+   |     ^^^^^^^ F841
+64 |
+65 |     payload = {
+   |
+   = help: Remove assignment to unused variable `slackid`
+
+Found 38 errors.
+[*] 3 fixable with the `--fix` option (35 hidden fixes can be enabled with the `--unsafe-fixes` option).
+
+C:\test\Architecture-and-backend-homework>python -m ruff format .
+5 files left unchanged
